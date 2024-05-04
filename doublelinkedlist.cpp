@@ -51,5 +51,35 @@ void addNode()
             current = current->next; // step 1.e: move the current to the next node
         }
 
+        newNode->next = current;  // step 4: Make the next field of the new node point
+        newNode->prev = previous; // step 5: Make the previous field of the new node point
+
+        if (current != NULL)
+        {
+            current->prev = newNode; // step 6: Make the previous field of the current node
+        }
+
+        if (previous != NULL)
+        {
+            previous->next = newNode; // step 7: Make the next field of the previous node
+        }
+
+        else
+        {
+            // if previous is still NULL, it means newNode is now the first node
+            START = newNode;
+        }
     }
+}
+
+bool search(int rollNo, Node **previous, Node **current)
+{
+    *previous = NULL;
+    *current = START;
+    while (*current != NULL && (*current)->noMhs != rollNo)
+    {
+        *previous = *current;
+        *current = (*current)->next;
+    }
+    return (*current != NULL);
 }
